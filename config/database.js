@@ -1,3 +1,3 @@
 module.exports = {
-    url: 'mongodb://localhost:27017/myBlog'
+    connectionString: 'mongodb+srv://prabhjyotgambhir:Support@123@seriouslygambhirserver-gkzob.mongodb.net/test?retryWrites=true&w=majority'
 };

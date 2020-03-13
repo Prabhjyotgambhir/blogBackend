@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const port = 2000;
+const port = process.env.NODE_ENV === 'production' ? (process.env.PORT || 80) : 4000;
 const mongoose = require('mongoose');
 const config = require('./config/database');
 const bodyParser = require('body-parser');
@@ -14,14 +14,7 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(morgan('dev'));
 
-
-mongoose.connect(config.url, () => {
-    console.log('Connected to database: ', config.url);
-});
-
-mongoose.connection.on('error', (error) => {
-    console.log('Error connecting database: ', error);
-});
+mongoose.connect(process.env.MONGODB_URI || config.connectionString, { useCreateIndex: true, useNewUrlParser: true,  useUnifiedTopology : true  });
 
 app.get('/', (req,res) => {
     res.send('Invalid Endpoint');
